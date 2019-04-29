@@ -22,7 +22,7 @@ module.exports = class CalcTransferDate extends Action {
   async run(data) {
 
     const durations = api.dateHelper.calculateDelay(data.params.initialDate, data.params.delay)
-    let dt = DateTime.fromISO(data.params.initialDate).plus({ days: durations.totalDays })
+    let dt = DateTime.fromISO(data.params.initialDate, {zone: 'utc'}).plus({ days: durations.totalDays })
 
     console.log(durations)
     data.response.results = {
