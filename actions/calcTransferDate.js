@@ -2,6 +2,8 @@
 const { Action, api } = require('actionhero')
 const { DateTime } = require('luxon')
 
+var postal = require('postal');
+
 module.exports = class CalcTransferDate extends Action {
   constructor() {
     super()
@@ -25,11 +27,17 @@ module.exports = class CalcTransferDate extends Action {
     let dt = DateTime.fromISO(data.params.initialDate, {zone: 'utc'}).plus({ days: durations.totalDays })
 
     console.log(durations)
-    data.response.results = {
+
+    let results = {
       businessDate: dt,
       totalDays: durations.totalDays,
       weekendDays: durations.weekendDays,
       holidayDays: durations.holidays
     }
+
+    var channel = postal.channel("BankWire")
+    channel.publish("businessDates", { results : results } )
+
+    data.response.results = results
   }
 }
