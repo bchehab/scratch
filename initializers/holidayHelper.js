@@ -5,15 +5,14 @@ module.exports = class HolidayHelper extends Initializer {
   constructor() {
     super()
     this.name = 'holidayHelper'
-    this.loadPriority = 1000
-    this.startPriority = 1000
-    this.stopPriority = 1000
+    this.loadPriority = 1001
+    this.startPriority = 1001
+    this.stopPriority = 1001
   }
 
   async initialize() {
 
-    // todo: add locale & year for holidays
-    // this.holidays = '20180101', '20180121', '20180218', '20180527', '20180704', '20180902', '20180121'
+    // todo: add locale before year
 
     // ideally, should be a cached service call, or db
     this.holidays = {
@@ -49,11 +48,11 @@ module.exports = class HolidayHelper extends Initializer {
       }
     }
 
-    api.dateHelper = {}
+    api.dateHelper = api.dateHelper || {}
 
-    api.dateHelper.isHoliday = (date) => {
-      date = DateTime.fromISO(date, {zone: 'utc'})
-      return this.holidays[date.year][date.month][date.day] ? true : false;
+    api.dateHelper.isHoliday = (inputDate, zone, country) => {
+      let date = api.dateHelper.getDate(inputDate, zone)
+      return this.holidays[date.year][date.month][date.day] === true
     }
   }
 

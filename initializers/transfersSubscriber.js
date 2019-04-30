@@ -5,9 +5,9 @@ module.exports = class TransfersSubscriber extends Initializer {
   constructor() {
     super()
     this.name = 'transfersSubscriber'
-    this.loadPriority = 1002
-    this.startPriority = 1002
-    this.stopPriority = 1002
+    this.loadPriority = 1004
+    this.startPriority = 1004
+    this.stopPriority = 1004
   }
 
   async initialize() {
@@ -15,16 +15,16 @@ module.exports = class TransfersSubscriber extends Initializer {
     api.transfers.channel = postal.channel("BankWire")
   }
 
-   async start () {
+  async start() {
     api.transfers.subscription = api.transfers.channel.subscribe("businessDates", function (data) {
-      console.log('transfer received:')
-      console.log(data)
+      // console.log('transfer received:')
+      // console.log(data)
     });
     console.log('subscribed to transfers channel')
-   }
-   
-   async stop () {
+  }
+
+  async stop() {
     api.transfers.subscription.unsubscribe()
     console.log('unsubscribed from transfers channel')
-   }
+  }
 }

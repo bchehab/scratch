@@ -22,7 +22,6 @@ describe('Business Dates Tests', () => {
   it('should have booted into the test env', () => {
     process.env.NODE_ENV.should.equal('test')
     api.env.should.equal('test')
-    // api.id).toBeTruthy()
   })
 
   it('business date test case 1', async () => {
@@ -31,7 +30,6 @@ describe('Business Dates Tests', () => {
       { initialDate: '2018-11-10', delay: 3 }
     )
 
-    // businessDate.should.equalDate(DateTime.fromISO('2018-11-15'))
     results.businessDate.ts.should.equal(DateTime.fromISO('2018-11-15').ts)
     results.weekendDays.should.equal(2)
     results.holidayDays.should.equal(1)
