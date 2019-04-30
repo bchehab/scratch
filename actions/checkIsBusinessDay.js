@@ -1,6 +1,5 @@
 'use strict'
 const { Action, api } = require('actionhero')
-const { DateTime } = require('luxon')
 
 module.exports = class CheckIsBusinessDay extends Action {
   constructor() {
@@ -21,11 +20,11 @@ module.exports = class CheckIsBusinessDay extends Action {
         required: false
       }
     }
-    this.outputExample = {}
+    this.outputExample = { 'result': true }
   }
 
   dateValidator(param) {
-    return DateTime.fromISO(param).isValid
+    return api.dateHelper.isValidDate(param)
   }
 
   async run(data) {

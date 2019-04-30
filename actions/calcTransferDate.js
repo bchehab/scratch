@@ -1,7 +1,5 @@
 'use strict'
 const { Action, api } = require('actionhero')
-const { DateTime } = require('luxon')
-var postal = require('postal')
 
 module.exports = class CalcTransferDate extends Action {
   constructor() {
@@ -36,13 +34,15 @@ module.exports = class CalcTransferDate extends Action {
         'businessDate': '2018-12-15T10:10:10Z',
         'totalDays': 4,
         'holidayDays': 1,
-        'weekendDays': 0
+        'weekendDays': 0,
+        'country': 'US',
+        'timezone': 'utc'
       }
     }
   }
 
   dateValidator(param) {
-    return DateTime.fromISO(param).isValid
+    return api.dateHelper.isValidDate(param)
   }
 
   delayValidator(param) {
@@ -51,14 +51,15 @@ module.exports = class CalcTransferDate extends Action {
 
   async run(data) {
     api.log('transfer received', 'info', data.params)
-    // calculate settlement date result
     api.log('calculating settlement date')
+
+    // calculate settlement date result
     let result = api.transferDateHelper.calculate(data.params)
+
     api.log('settlement date result:', 'info', result)
 
     // publish to topic just for the sake of testing pub/sub functionality.
-    var channel = postal.channel('BankWire')
-    channel.publish('businessDates', data.params)
+    api.transfers.processTransfer(data.params)
 
     data.response = result
   }
