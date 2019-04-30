@@ -78,8 +78,8 @@ module.exports = class HolidayHelper extends Initializer {
     api.dateHelper = api.dateHelper || {}
 
     // returns true if it's a holiday for the specified country/year/day
-    api.dateHelper.isHoliday = (inputDate, zone, country) => {
-      let date = api.dateHelper.getDate(inputDate, zone)
+    api.dateHelper.isHoliday = (inputDate, timezone, country) => {
+      let date = api.dateHelper.getDate(inputDate, timezone)
 
       let years = this.getProperty(this.holidays, country)
       let months = this.getProperty(years, date.year)

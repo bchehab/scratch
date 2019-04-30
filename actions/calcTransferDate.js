@@ -22,7 +22,7 @@ module.exports = class CalcTransferDate extends Action {
         required: false,
         validator: (params) => { return params.length === 2 }
       },
-      zone: {
+      timezone: {
         required: false
       }
     }

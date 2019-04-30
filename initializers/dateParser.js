@@ -14,9 +14,9 @@ module.exports = class DateParser extends Initializer {
     api.dateHelper = api.dateHelper || {}
 
     // convert to date object if date is a string
-    api.dateHelper.getDate = (date, zone) => {
-      zone = zone || 'utc'
-      return typeof date === 'string' ? DateTime.fromISO(date, { zone: zone }) : date
+    api.dateHelper.getDate = (date, timezone) => {
+      timezone = timezone || 'utc'
+      return typeof date === 'string' ? DateTime.fromISO(date, { zone: timezone }) : date
     }
   }
 

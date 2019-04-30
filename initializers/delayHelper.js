@@ -14,16 +14,16 @@ module.exports = class DelayHelper extends Initializer {
     // calculate number of weekends, holidays, and total delay
     api.dateHelper = api.dateHelper || {}
 
-    api.dateHelper.calculateDelay = (inputDate, delay, zone, country) => {
-      let date = api.dateHelper.getDate(inputDate, zone)
+    api.dateHelper.calculateDelay = (inputDate, delay, timezone, country) => {
+      let date = api.dateHelper.getDate(inputDate, timezone)
 
       let totalDays = 0
       let holidays = 0
       let weekendDays = 0
 
       while (delay > 0) {
-        let isHoliday = api.dateHelper.isHoliday(date, zone, country)
-        let isWeekDay = api.dateHelper.isWeekDay(date, zone)
+        let isHoliday = api.dateHelper.isHoliday(date, timezone, country)
+        let isWeekDay = api.dateHelper.isWeekDay(date, timezone)
 
         if (isHoliday) {
           holidays++

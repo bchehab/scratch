@@ -2,11 +2,11 @@
 const { Action, api } = require('actionhero')
 const { DateTime } = require('luxon')
 
-module.exports = class CheckIsBusinessDate extends Action {
+module.exports = class CheckIsBusinessDay extends Action {
   constructor() {
     super()
-    this.name = 'checkIsBusinessDate'
-    this.description = 'an actionhero action'
+    this.name = 'checkIsBusinessDay'
+    this.description = 'checks if the given date is a normal working day'
     this.version = 1
     this.inputs = {
       date: {
@@ -17,7 +17,7 @@ module.exports = class CheckIsBusinessDate extends Action {
         required: false,
         validator: (params) => { return params.length === 2 }
       },
-      zone: {
+      timezone: {
         required: false
       }
     }
@@ -29,6 +29,6 @@ module.exports = class CheckIsBusinessDate extends Action {
   }
 
   async run(data) {
-    data.response = { result: api.dateHelper.isBusinessDay(data.params.date, data.params.zone, data.params.country) }
+    data.response = { result: api.dateHelper.isBusinessDay(data.params.date, data.params.timezone, data.params.country) }
   }
 }

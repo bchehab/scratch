@@ -15,7 +15,7 @@ module.exports = class DefaultParamsMiddleWare extends ActionHero.Initializer {
       priority: 1000,
       preProcessor: async ({ params }) => {
         params.country = params.country || 'US'
-        params.zone = params.zone || 'utc'
+        params.timezone = params.timezone || 'utc'
       }
     }
 

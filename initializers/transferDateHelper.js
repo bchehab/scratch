@@ -15,12 +15,12 @@ module.exports = class TransferDateHelper extends Initializer {
 
     // convert to date object if date is a string
     api.transferDateHelper.calculate = (params) => {
-      const { initialDate, delay, zone, country } = params
+      const { initialDate, delay, timezone, country } = params
 
       // calculate holidays, weekends, and totalDays(delay)
-      const durations = api.dateHelper.calculateDelay(initialDate, delay, zone, country)
+      const durations = api.dateHelper.calculateDelay(initialDate, delay, timezone, country)
       // settlementDate = initialDate + totalDays
-      let settlementDate = api.dateHelper.getDate(initialDate, zone).plus({ days: durations.totalDays })
+      let settlementDate = api.dateHelper.getDate(initialDate, timezone).plus({ days: durations.totalDays })
 
       let result = {
         ok: true,
@@ -29,7 +29,8 @@ module.exports = class TransferDateHelper extends Initializer {
           businessDate: settlementDate,
           totalDays: durations.totalDays,
           weekendDays: durations.weekendDays,
-          holidayDays: durations.holidays
+          holidayDays: durations.holidays,
+          timezone: timezone
         }
       }
 
