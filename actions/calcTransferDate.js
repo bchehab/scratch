@@ -56,6 +56,7 @@ module.exports = class CalcTransferDate extends Action {
     let result = api.transferDateHelper.calculate(data.params)
     api.log('settlement date result:', 'info', result)
 
+    // publish to topic just for the sake of testing pub/sub functionality.
     var channel = postal.channel('BankWire')
     channel.publish('businessDates', data.params)
 
