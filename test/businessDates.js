@@ -27,10 +27,10 @@ describe('Business Dates Tests', () => {
   it('business date test case 1', async () => {
     const { results } = await api.specHelper.runAction(
       'calcTransferDate',
-      { initialDate: '2018-11-10', delay: 3 }
+      { initialDate: '2018-11-10T00:00:00.000Z', delay: 3 }
     )
 
-    results.businessDate.ts.should.equal(DateTime.fromISO('2018-11-15').ts)
+    results.businessDate.ts.should.equal(DateTime.fromISO('2018-11-15T00:00:00.000Z').ts)
     results.weekendDays.should.equal(2)
     results.holidayDays.should.equal(1)
   })
@@ -38,10 +38,10 @@ describe('Business Dates Tests', () => {
   it('business date test case 2', async () => {
     const { results } = await api.specHelper.runAction(
       'calcTransferDate',
-      { initialDate: '2018-11-15', delay: 3 }
+      { initialDate: '2018-11-15T00:00:00.000Z', delay: 3 }
     )
 
-    results.businessDate.ts.should.equal(DateTime.fromISO('2018-11-19').ts)
+    results.businessDate.ts.should.equal(DateTime.fromISO('2018-11-19T00:00:00.000Z').ts)
     results.weekendDays.should.equal(2)
     results.holidayDays.should.equal(0)
   })
@@ -49,10 +49,10 @@ describe('Business Dates Tests', () => {
   it('business date test case 3', async () => {
     const { results } = await api.specHelper.runAction(
       'calcTransferDate',
-      { initialDate: '2018-12-25', delay: 20 }
+      { initialDate: '2018-12-25T00:00:00.000Z', delay: 20 }
     )
 
-    results.businessDate.ts.should.equal(DateTime.fromISO('2019-01-18').ts)
+    results.businessDate.ts.should.equal(DateTime.fromISO('2019-01-18T00:00:00.000Z').ts)
     results.weekendDays.should.equal(8)
     results.holidayDays.should.equal(2)
   })

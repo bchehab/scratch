@@ -5,9 +5,9 @@ module.exports = class BusinessDayHelper extends Initializer {
   constructor() {
     super()
     this.name = 'businessDayHelper'
-    this.loadPriority = 1002
-    this.startPriority = 1002
-    this.stopPriority = 1002
+    this.loadPriority = 1003
+    this.startPriority = 1003
+    this.stopPriority = 1003
   }
 
   async initialize() {

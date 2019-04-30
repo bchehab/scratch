@@ -6,6 +6,16 @@ exports['default'] = {
           path:
             '/:apiVersion/businessDates/getBusinessDateWithDelay/:initialDate/:delay',
           action: 'calcTransferDate'
+        },
+        {
+          path:
+            '/:apiVersion/businessDates/getBusinessDateWithDelay/:initialDate/:delay/:zone',
+          action: 'calcTransferDate'
+        },
+        {
+          path:
+            '/:apiVersion/businessDates/getBusinessDateWithDelay/:initialDate/:delay/:zone/:country',
+          action: 'calcTransferDate'
         }
       ],
 

@@ -5,12 +5,13 @@ module.exports = class DelayHelper extends Initializer {
   constructor() {
     super()
     this.name = 'delayHelper'
-    this.loadPriority = 1003
-    this.startPriority = 1003
-    this.stopPriority = 1003
+    this.loadPriority = 1004
+    this.startPriority = 1004
+    this.stopPriority = 1004
   }
 
   async initialize() {
+    // calculate number of weekends, holidays, and total delay
     api.dateHelper = api.dateHelper || {}
 
     api.dateHelper.calculateDelay = (inputDate, delay, zone, country) => {
@@ -21,17 +22,18 @@ module.exports = class DelayHelper extends Initializer {
       let weekendDays = 0
 
       while (delay > 0) {
-        const isHoliday = api.dateHelper.isHoliday(date, zone, country)
+        let isHoliday = api.dateHelper.isHoliday(date, zone, country)
+        let isBusinessDay = api.dateHelper.isBusinessDay(date, zone)
 
         if (isHoliday) {
           holidays++
         }
 
-        let isBusinessDay = api.dateHelper.isBusinessDay(date, zone)
-
         if (!isBusinessDay) {
           weekendDays++
         }
+
+        // only decrease the delay if it's a working day
         else if (!isHoliday) {
           delay--
         }

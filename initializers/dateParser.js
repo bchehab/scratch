@@ -5,14 +5,15 @@ module.exports = class DateParser extends Initializer {
   constructor() {
     super()
     this.name = 'dateParser'
-    this.loadPriority = 1000
-    this.startPriority = 1000
-    this.stopPriority = 1000
+    this.loadPriority = 1001
+    this.startPriority = 1001
+    this.stopPriority = 1001
   }
 
   async initialize() {
     api.dateHelper = api.dateHelper || {}
 
+    // convert to date object if date is a string
     api.dateHelper.getDate = (date, zone) => {
       zone = zone || 'utc'
       return typeof date === 'string' ? DateTime.fromISO(date, { zone: zone }) : date

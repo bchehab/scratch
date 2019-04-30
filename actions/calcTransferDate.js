@@ -17,6 +17,13 @@ module.exports = class CalcTransferDate extends Action {
       delay: {
         required: true,
         validator: this.delayValidator
+      },
+      country: {
+        required: false,
+        validator: (params) => { return params.length === 2 }
+      },
+      zone: {
+        required: false
       }
     }
     this.outputExample = {
@@ -43,24 +50,15 @@ module.exports = class CalcTransferDate extends Action {
   }
 
   async run(data) {
-    const initialDate = data.params.initialDate
-    const delay = data.params.delay
-    const zone = data.params.zone
-    const country = data.params.country
-
-    const durations = api.dateHelper.calculateDelay(initialDate, delay, zone, country)
-    let settlementDate = api.dateHelper.getDate(initialDate, zone).plus({ days: durations.totalDays })
-
-    let results = {
-      businessDate: settlementDate,
-      totalDays: durations.totalDays,
-      weekendDays: durations.weekendDays,
-      holidayDays: durations.holidays
-    }
+    api.log('transfer received', 'info', data.params)
+    // calculate settlement date result
+    api.log('calculating settlement date')
+    let result = api.transferDateHelper.calculate(data.params)
+    api.log('settlement date result:', 'info', result)
 
     var channel = postal.channel('BankWire')
-    channel.publish('businessDates', { results: results })
+    channel.publish('businessDates', data.params)
 
-    data.response.results = results
+    data.response = result
   }
 }
