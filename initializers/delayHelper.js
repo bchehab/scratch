@@ -23,13 +23,13 @@ module.exports = class DelayHelper extends Initializer {
 
       while (delay > 0) {
         let isHoliday = api.dateHelper.isHoliday(date, zone, country)
-        let isBusinessDay = api.dateHelper.isBusinessDay(date, zone)
+        let isWeekDay = api.dateHelper.isWeekDay(date, zone)
 
         if (isHoliday) {
           holidays++
         }
 
-        if (!isBusinessDay) {
+        if (!isWeekDay) {
           weekendDays++
         }
 

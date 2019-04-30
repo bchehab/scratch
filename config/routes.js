@@ -16,6 +16,21 @@ exports['default'] = {
           path:
             '/:apiVersion/businessDates/getBusinessDateWithDelay/:initialDate/:delay/:zone/:country',
           action: 'calcTransferDate'
+        },
+        {
+          path:
+            '/:apiVersion/businessDates/isBusinessDate/:date',
+          action: 'checkIsBusinessDate'
+        },
+        {
+          path:
+            '/:apiVersion/businessDates/isBusinessDate/:date/:zone',
+          action: 'checkIsBusinessDate'
+        },
+        {
+          path:
+            '/:apiVersion/businessDates/isBusinessDate/:date/:zone/:country',
+          action: 'checkIsBusinessDate'
         }
       ],
 

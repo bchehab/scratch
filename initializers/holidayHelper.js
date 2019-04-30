@@ -5,9 +5,9 @@ module.exports = class HolidayHelper extends Initializer {
   constructor() {
     super()
     this.name = 'holidayHelper'
-    this.loadPriority = 1002
-    this.startPriority = 1002
-    this.stopPriority = 1002
+    this.loadPriority = 1003
+    this.startPriority = 1003
+    this.stopPriority = 1003
   }
 
   async initialize() {
@@ -80,7 +80,17 @@ module.exports = class HolidayHelper extends Initializer {
     // returns true if it's a holiday for the specified country/year/day
     api.dateHelper.isHoliday = (inputDate, zone, country) => {
       let date = api.dateHelper.getDate(inputDate, zone)
-      return this.holidays[country][date.year][date.month][date.day] === true
+
+      let years = this.getProperty(this.holidays, country)
+      let months = this.getProperty(years, date.year)
+      let days = this.getProperty(months, date.month)
+
+      return days[date.day] === true
+    }
+
+    this.getProperty = (data, property) => {
+      const prop = data[property] || {}
+      return prop
     }
   }
 
